@@ -135,7 +135,7 @@ function createPagesMaster() {
 
 		});
 
-		//alert("Your template pages were successfully  created!");
+		
 
 	});
 }
@@ -150,7 +150,7 @@ $('#debugDiv').html("");
 		var createFolder = function () {						
 			var def = $.Deferred();						
 			$.post(create_folder(folder), function (data) {
-				//	console.log(folder);
+				
 			})
 			
 			.fail(function(response) {
@@ -250,41 +250,6 @@ function fileHttpPath(data) {
 }
 
 
-
-function outputData(data) {
-
-	//DEBUG
-	//console.log(data);
-
-	//Can create different outputs.
-	gregsTool(data);
-
-	//UL>LI list for Greg's File Review Tool
-	function gregsTool(data){
-		var output = "";
-
-		output += "<li><a href='"+data+"'>"+ data.replace(domain, '/')+"</a></li>";
-		$('#csv-start').append(document.createTextNode(output +"\r"));
-
-
-
-	}
-}
-
-function outputDirData(data) {
-	//console.log(data);
-
-	myList(data);
-
-
-	function myList(data) {
-		var dirOutput = "";
-
-		dirOutput+= "<li><a href='"+data+"'>"+ data.replace(domain, '/')+"</a></li>";
-		$('#dir-start').append(document.createTextNode(dirOutput +"\r"));		
-	}
-}
-
 function fileListData(data) {
 	var fileList = [];
 	var dirList =[];
@@ -298,44 +263,9 @@ function fileListData(data) {
 		}
 	});
 
-	//DEBUG
-	//console.log(fileList);
-
-	$.when(fileList).done(function(){
-		$.each(fileList, function (k, v) {
-			outputData(v.replace("pcf", extensionOut));
-		});
-
-
-	});
-
-	$.when(dirList).done(function(){
-		$.each(dirList, function (k, v) {
-
-			$.get(getPCFInfo(v), function(data) {
-				fileListData(data);
-
-
-
-			});
-
-
-		});
-	});
-
-
 }
 
-function dirListData(data) {
-	var dirList =[];
-	$.each(data.entries, function(k, v) {
-		if (v.http_path.includes('pcf')) {
-			dirList.push(v.staging_path);
-		}
-	});	
-	//console.log(dirList[0]);
-	return dirList[1];
-}
+
 
 //Start
 $('#goButton3').on('click', function () {
